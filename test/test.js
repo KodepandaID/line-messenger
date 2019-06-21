@@ -8,13 +8,28 @@ const Line = require('../index').connect({
 
 chai.should();
 
+let accessToken;
+
 describe('Line Messenger API Testing', () => {
   it('getAccessToken() method to get access token from Line Messenger', (done) => {
     Line
       .getAccessToken()
       .then((results) => {
+        accessToken = results.access_token;
         results.should.be.a('object');
         results.access_token.should.be.a('string');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('revokeAccessToken() method to revoke access token from Line Messenger', (done) => {
+    Line
+      .revokeAccessToken(accessToken)
+      .then((results) => {
+        results.should.have.lengthOf(0);
         done();
       })
       .catch((error) => {
