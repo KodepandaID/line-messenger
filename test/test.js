@@ -25,11 +25,97 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast messages to all friend', (done) => {
+  it('sendPushMessage() method to send broadcast text message to all friend', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
         message.text('Hello brow');
+        message.notificationDisabled();
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendPushMessage() method to send broadcast message with sticker to all friend', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.sticker('11537', '52002768');
+        message.notificationDisabled();
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendPushMessage() method to send broadcast message with image to all friend', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.image('https://d.line-scdn.net/stf/lp/character%20update_0516_Img_PNG/2_LINE_Store_PNG/09_id.png', 'https://d.line-scdn.net/stf/lp/character%20update_0516_Img_PNG/2_LINE_Store_PNG/09_id.png');
+        message.notificationDisabled(false);
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendPushMessage() method to send broadcast message with video to all friend', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.video('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/Sintel.jpg', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4');
+        message.notificationDisabled(true);
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendPushMessage() method to send broadcast message with audio to all friend', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.audio('https://bookslifestorage.s3-ap-southeast-1.amazonaws.com/samplemusic.mp3', 149400);
+        message.notificationDisabled(false);
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendPushMessage() method to send broadcast message with location to all friend', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.location('I was here', 'Jl. Kapten Muslim', 3.599285, 98.645255);
+        message.notificationDisabled(false);
       })
       .then((results) => {
         results.should.be.a('object');
