@@ -25,6 +25,22 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('sendPushMessage() method to send broadcast messages to all friend', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.text('Hello brow');
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('revokeAccessToken() method to revoke access token from Line Messenger', (done) => {
     Line
       .revokeAccessToken(accessToken)
