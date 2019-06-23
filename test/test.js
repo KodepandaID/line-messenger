@@ -127,6 +127,28 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('sendPushMessage() method to send imagemap', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.imageMap('https://dummyimage.com/600x400/000/fff.jpg&text=imagemap', 'This is an imagemap', (imagemap) => {
+          imagemap.video('https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4?_ignored=', 'https://dummyimage.com/600x400/000/fff.jpg&text=imagemap');
+          imagemap.externalLink('https://yudhapratama.com', 'See more');
+          imagemap.actionUri('https://yudhapratama.com');
+          imagemap.actionMessage('Hello', 'Hello');
+          message.notificationDisabled(false);
+        });
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('sendPushMessage() method to send message with quick reply', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
