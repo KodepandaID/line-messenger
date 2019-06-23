@@ -189,6 +189,23 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('broadcastMessage() method to send broadcast messages', (done) => {
+    Line
+      .sendMulticastMessage(accessToken, (message) => {
+        message.to([process.env.USER_ID]);
+        message.text('Send broadcast message');
+        message.notificationDisabled();
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('revokeAccessToken() method to revoke access token from Line Messenger', (done) => {
     Line
       .revokeAccessToken(accessToken)
