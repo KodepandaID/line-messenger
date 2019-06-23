@@ -25,7 +25,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast text message', (done) => {
+  it('sendPushMessage() method to send text message', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
@@ -161,6 +161,23 @@ describe('Line Messenger API Testing', () => {
           reply.postback('Buy', 'Buy', 'action=buy');
           reply.dateTimePicker('Select date', 'action=date', '2017-12-25t00:00', '2100-12-31T23:59', '1900-01-01T00:00');
         });
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendMulticastMessage() method to send messsage to many users', (done) => {
+    Line
+      .sendMulticastMessage(accessToken, (message) => {
+        message.to([process.env.USER_ID]);
+        message.text('Send multicast message');
+        message.notificationDisabled();
       })
       .then((results) => {
         results.should.be.a('object');
