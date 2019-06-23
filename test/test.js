@@ -136,6 +136,8 @@ describe('Line Messenger API Testing', () => {
           reply.camera('Camera');
           reply.cameraRoll('Camera roll');
           reply.location('Location');
+          reply.postback('Buy', 'Buy', 'action=buy');
+          reply.dateTimePicker('Select date', 'action=date', '2017-12-25t00:00', '2100-12-31T23:59', '1900-01-01T00:00');
         });
       })
       .then((results) => {
