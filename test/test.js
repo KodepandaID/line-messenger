@@ -191,7 +191,7 @@ describe('Line Messenger API Testing', () => {
 
   it('broadcastMessage() method to send broadcast messages', (done) => {
     Line
-      .sendMulticastMessage(accessToken, (message) => {
+      .broadcastMessage(accessToken, (message) => {
         message.to([process.env.USER_ID]);
         message.text('Send broadcast message');
         message.notificationDisabled();
