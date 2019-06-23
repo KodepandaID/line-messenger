@@ -25,7 +25,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast text message to all friend', (done) => {
+  it('sendPushMessage() method to send broadcast text message', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
@@ -42,7 +42,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast message with sticker to all friend', (done) => {
+  it('sendPushMessage() method to send message with sticker', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
@@ -59,7 +59,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast message with image to all friend', (done) => {
+  it('sendPushMessage() method to send message with image', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
@@ -76,7 +76,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast message with video to all friend', (done) => {
+  it('sendPushMessage() method to send message with video', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
@@ -93,7 +93,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast message with audio to all friend', (done) => {
+  it('sendPushMessage() method to send message with audio', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
@@ -110,12 +110,33 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('sendPushMessage() method to send broadcast message with location to all friend', (done) => {
+  it('sendPushMessage() method to send message with location', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
         message.to(process.env.USER_ID);
         message.location('I was here', 'Jl. Kapten Muslim', 3.599285, 98.645255);
         message.notificationDisabled(false);
+      })
+      .then((results) => {
+        results.should.be.a('object');
+        results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('sendPushMessage() method to send message with quick reply', (done) => {
+    Line
+      .sendPushMessage(accessToken, (message) => {
+        message.to(process.env.USER_ID);
+        message.quickReply('I want to test send push message with quick reply :)', (reply) => {
+          reply.text('Yes', 'Yes');
+          reply.camera('Camera');
+          reply.cameraRoll('Camera roll');
+          reply.location('Location');
+        });
       })
       .then((results) => {
         results.should.be.a('object');
