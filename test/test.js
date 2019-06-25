@@ -25,6 +25,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('getTargetLimit() method to get limit messages in the current month', (done) => {
+    Line
+      .getTargetLimit(accessToken)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('sendPushMessage() method to send text message', (done) => {
     Line
       .sendPushMessage(accessToken, (message) => {
