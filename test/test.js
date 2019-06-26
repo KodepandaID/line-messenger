@@ -25,6 +25,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('getQuotaMessage() method to get limit messages in the current month', (done) => {
+    Line
+      .getQuotaMessage(accessToken)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('getTargetLimit() method to get limit messages in the current month', (done) => {
     Line
       .getTargetLimit(accessToken)
