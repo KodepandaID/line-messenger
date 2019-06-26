@@ -51,6 +51,20 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('getPushMessageConsumption() method to gets the number of push messages sent in the current month', (done) => {
+    const date = new Date().toISOString().split('T')[0].substr(0, 19).replace(/-/g, '');
+
+    Line
+      .getPushMessageConsumption(accessToken, date)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('getTargetLimit() method to get limit messages in the current month', (done) => {
     Line
       .getTargetLimit(accessToken)
