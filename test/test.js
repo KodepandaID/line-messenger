@@ -25,9 +25,23 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('getQuotaMessage() method to get limit messages in the current month', (done) => {
+  it('getQuotaMessage() method to gets the number of messages sent in the current month', (done) => {
     Line
       .getQuotaMessage(accessToken)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('getReplyMessageConsumption() method to gets the number of reply messages sent in the current month', (done) => {
+    const date = new Date().toISOString().split('T')[0].substr(0, 19).replace(/-/g, '');
+
+    Line
+      .getReplyMessageConsumption(accessToken, date)
       .then((results) => {
         results.should.be.a('object');
         done();
