@@ -79,9 +79,35 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('getBroadcastMessageConsumption() method to gets the number of broadcast messages sent', (done) => {
+    const date = new Date().toISOString().split('T')[0].substr(0, 19).replace(/-/g, '');
+
+    Line
+      .getBroadcastMessageConsumption(accessToken, date)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('getTargetLimit() method to get limit messages in the current month', (done) => {
     Line
       .getTargetLimit(accessToken)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('getUserProfile() method to gets user information', (done) => {
+    Line
+      .getUserProfile(accessToken, process.env.USER_ID)
       .then((results) => {
         results.should.be.a('object');
         done();
