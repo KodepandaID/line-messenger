@@ -37,7 +37,7 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('getReplyMessageConsumption() method to gets the number of reply messages sent in the current month', (done) => {
+  it('getReplyMessageConsumption() method to gets the number of reply messages sent', (done) => {
     const date = new Date().toISOString().split('T')[0].substr(0, 19).replace(/-/g, '');
 
     Line
@@ -51,11 +51,25 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('getPushMessageConsumption() method to gets the number of push messages sent in the current month', (done) => {
+  it('getPushMessageConsumption() method to gets the number of push messages sent', (done) => {
     const date = new Date().toISOString().split('T')[0].substr(0, 19).replace(/-/g, '');
 
     Line
       .getPushMessageConsumption(accessToken, date)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('getMulticastMessageConsumption() method to gets the number of multicast messages sent', (done) => {
+    const date = new Date().toISOString().split('T')[0].substr(0, 19).replace(/-/g, '');
+
+    Line
+      .getMulticastMessageConsumption(accessToken, date)
       .then((results) => {
         results.should.be.a('object');
         done();
