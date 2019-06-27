@@ -9,6 +9,7 @@ const Line = require('../index').connect({
 chai.should();
 
 let accessToken;
+let richmenuId;
 
 describe('Line Messenger API Testing', () => {
   it('getAccessToken() method to get access token from Line Messenger', (done) => {
@@ -291,6 +292,33 @@ describe('Line Messenger API Testing', () => {
       .then((results) => {
         results.should.be.a('object');
         results.should.eql({});
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('createRichMenu() method to create rich menu object', (done) => {
+    Line
+      .createRichMenu(accessToken, (menu) => {
+        menu.sizeMenu();
+        menu.selectedMenu();
+        menu.nameMenu('Rich menu');
+        menu.chatbar('Tap to open');
+        menu.area(0, 0, 385, 372, (tap) => {
+          tap.text('Test 1', 'Test 1');
+        });
+        menu.area(385, 0, 385, 372, (tap) => {
+          tap.text('Test 2', 'Test 2');
+        });
+        menu.area(770, 0, 385, 372, (tap) => {
+          tap.text('Test 3', 'Test 3');
+        });
+      })
+      .then((results) => {
+        richmenuId = results.richMenuId;
+        results.should.be.a('object');
         done();
       })
       .catch((error) => {
