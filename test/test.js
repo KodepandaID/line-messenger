@@ -441,6 +441,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('getAccountLinkToken() method to get a link token for the account link features', (done) => {
+    Line
+      .getAccountLinkToken(accessToken, process.env.USER_ID)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('unlinkRichMenuFromUser() method to unlike rich menu from a user', (done) => {
     Line
       .unlinkRichMenuFromUser(accessToken, [process.env.USER_ID])
