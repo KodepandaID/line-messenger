@@ -367,6 +367,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('setDefaultRichMenu() method to set rich menu as a default', (done) => {
+    Line
+      .setDefaultRichMenu(accessToken, richMenu.richmenus[0].richMenuId)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('deleteRichMenu() method to remove rich menu', (done) => {
     richMenu.richmenus.forEach((menu, index) => {
       Line
