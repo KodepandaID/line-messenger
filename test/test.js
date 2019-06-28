@@ -367,6 +367,20 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('deleteRichMenu() method to remove rich menu', (done) => {
+    richMenu.richmenus.forEach((menu, index) => {
+      Line
+        .deleteRichMenu(accessToken, menu.richMenuId)
+        .then((results) => {
+          results.should.be.a('object');
+          if (richMenu.richmenus.length === (index + 1)) done();
+        })
+        .catch((error) => {
+          done(error);
+        });
+    });
+  });
+
   it('revokeAccessToken() method to revoke access token from Line Messenger', (done) => {
     Line
       .revokeAccessToken(accessToken)
