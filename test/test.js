@@ -1,4 +1,5 @@
 const chai = require('chai');
+const path = require('path');
 
 const Line = require('../index').connect({
   access_token: process.env.ACCESS_TOKEN,
@@ -318,6 +319,20 @@ describe('Line Messenger API Testing', () => {
       })
       .then((results) => {
         richmenuId = results.richMenuId;
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('uploadRichMenuImage() method to upload rich menu image', (done) => {
+    const imagePath = path.join(__dirname, '/testrichmenu.jpg');
+
+    Line
+      .uploadRichMenuImage(accessToken, richmenuId, imagePath)
+      .then((results) => {
         results.should.be.a('object');
         done();
       })
