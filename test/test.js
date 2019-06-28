@@ -427,6 +427,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('unlinkRichMenuFromUser() method to unlike rich menu from a user', (done) => {
+    Line
+      .unlinkRichMenuFromUser(accessToken, [process.env.USER_ID])
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('deleteRichMenu() method to remove rich menu', (done) => {
     richMenu.richmenus.forEach((menu, index) => {
       Line
