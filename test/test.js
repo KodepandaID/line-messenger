@@ -11,6 +11,7 @@ chai.should();
 
 let accessToken;
 let richmenuId;
+let richMenu;
 
 describe('Line Messenger API Testing', () => {
   it('getAccessToken() method to get access token from Line Messenger', (done) => {
@@ -344,6 +345,19 @@ describe('Line Messenger API Testing', () => {
   it('getRichMenuList() method to gets rich menu', (done) => {
     Line
       .getRichMenuList(accessToken)
+      .then((results) => {
+        richMenu = results;
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('getRichMenu() method to get rich menu', (done) => {
+    Line
+      .getRichMenu(accessToken, richMenu.richmenus[0].richMenuId)
       .then((results) => {
         results.should.be.a('object');
         done();
