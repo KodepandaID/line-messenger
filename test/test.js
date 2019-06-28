@@ -379,6 +379,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('cancelDefaultRichMenu() method to remove default rich menu', (done) => {
+    Line
+      .cancelDefaultRichMenu(accessToken)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('deleteRichMenu() method to remove rich menu', (done) => {
     richMenu.richmenus.forEach((menu, index) => {
       Line
