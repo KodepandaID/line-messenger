@@ -403,9 +403,9 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('linkRichMenuToMultipleUser() method to set rich menu for multiple user', (done) => {
+  it('getRichMenuUser() method to get of the rich menu linked to a user', (done) => {
     Line
-      .linkRichMenuToMultipleUser(accessToken, [process.env.USER_ID], richMenu.richmenus[0].richMenuId)
+      .getRichMenuUser(accessToken, process.env.USER_ID)
       .then((results) => {
         results.should.be.a('object');
         done();
@@ -415,9 +415,21 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
-  it('getRichMenuUser() method to get of the rich menu linked to a user', (done) => {
+  it('unlinkRichMenuFromMultipleUser() method to unlike rich menu from multiple users', (done) => {
     Line
-      .getRichMenuUser(accessToken, process.env.USER_ID)
+      .unlinkRichMenuFromMultipleUser(accessToken, [process.env.USER_ID])
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('linkRichMenuToMultipleUser() method to set rich menu for multiple user', (done) => {
+    Line
+      .linkRichMenuToMultipleUser(accessToken, [process.env.USER_ID], richMenu.richmenus[0].richMenuId)
       .then((results) => {
         results.should.be.a('object');
         done();
