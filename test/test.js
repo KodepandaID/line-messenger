@@ -341,6 +341,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('getRichMenuList() method to gets rich menu', (done) => {
+    Line
+      .getRichMenuList(accessToken)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('revokeAccessToken() method to revoke access token from Line Messenger', (done) => {
     Line
       .revokeAccessToken(accessToken)
