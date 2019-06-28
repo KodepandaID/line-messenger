@@ -391,6 +391,18 @@ describe('Line Messenger API Testing', () => {
       });
   });
 
+  it('linkRichMenuToUser() method to set rich menu for spesific user', (done) => {
+    Line
+      .linkRichMenuToUser(accessToken, process.env.USER_ID, richMenu.richmenus[0].richMenuId)
+      .then((results) => {
+        results.should.be.a('object');
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
   it('deleteRichMenu() method to remove rich menu', (done) => {
     richMenu.richmenus.forEach((menu, index) => {
       Line
