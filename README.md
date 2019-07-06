@@ -4,7 +4,7 @@
 
 This package helps you to build Line Messenger API easier and faster. This packages supports Node.JS version 8 or higher.
 
-This package is under development and you can't use this package for production. I will finish the packages as soon as posible. If you found bugs or errors, you can report at Github Issue.
+If you found bugs or errors, you can report at Github Issue or send a direct message to my [twitter](https://twitter.com/LordAur).
 
 # Installation
 ```bash
@@ -314,6 +314,189 @@ Gets the number of broadcast messages sent by the date messages was sent.
 Line
   .getBroadcastMessageConsumption(accessToken)
   .then((results))
+  .catch()
+```
+
+## Rich Menu
+### Create rich menu
+To create a rich menu you must upload a rich menu image after the rich menu was created. You can create up to 1000 rich menus for one LINE official account with the Messaging API.
+
+```js
+Line
+  .createRichMenu(accessToken, (menu) => {
+    menu.sizeMenu();
+    menu.selectedMenu();
+    menu.nameMenu('Rich menu');
+    menu.chatbar('Tap to open');
+    menu.area(0, 0, 385, 372, (tap) => {
+      tap.text('Test 1', 'Test 1');
+    });
+  })
+  .then((results))
+  .catch()
+```
+
+The createRichMenu method has many objects. You can see this below:
+
+###  Size rich menu
+You can use rich menu images with the followong specifications:
+* Image ormatL JPEG or PNG
+* Image size 2500x1686 or 2500x843 pixels. 2500x843 is set by default.
+* Maximum file size: 1MB
+
+```js
+menu.sizeMenu(width, height);
+```
+
+### Selected rich menu
+To display the rich menu by default.
+
+```js
+menu.selectedMenu();
+```
+
+### Name rich menu
+This name value can be used to help manage your rich menus and is not displayed to users.
+
+```js
+menu.nameMenu('Write name here');
+```
+
+### Chatbar text rich meny
+This chatbar text will be displayed to users. You can 
+set the value like **Tap to open** or whatever.
+
+```js
+menu.chatbar('Tap to open');
+```
+
+### Area rich menu
+The area is a tappable image which define the coordinates and size. 
+
+You can see this [link](https://developers.line.biz/en/docs/messaging-api/using-rich-menus/) for more information about rich meny tappable area images.
+
+```js
+menu.area(x_coordinate, y_coordinate, width, height, (tap) => {
+  tap.text('Test 1', 'Test 1');
+});
+```
+
+The area method used message object callback. You can see the message objects on [message objects](#message-object).
+
+After the rich menu was created you will receive rich menu id.
+
+### Upload rich menu images
+Uploads and attaches an image to a rich menu.
+
+You can use rich menu images with the followong specifications:
+* Image ormatL JPEG or PNG
+* Image size 2500x1686 or 2500x843 pixels. 2500x843 is set by default.
+* Maximum file size: 1MB
+
+```js
+Line
+  .uploadRichMenuImage(accessToken, richMenuId, imagePath)
+  .then()
+  .catch()
+```
+
+### Get rich menu list
+Gets a list of all rich menus created by Create rich menu.
+
+```js
+Line
+  .getRichMenuList(accessToken)
+  .then((results))
+  .catch()
+```
+
+### Get rich menu detail by rich menu id
+Gets a specific rich menu by rich menu id.
+
+```js
+Line
+  .getRichMenu(accessToken, richMenuId)
+  .then((results))
+  .catch()
+```
+
+### Set default rich menu
+Sets the default rich menu. The default rich menu is displayed to all users who have added your LINE official account as a friend and are not linked to any per-user rich menu.
+
+```js
+Line
+  .setDefaultRichMeny(accessToken, richMenuId)
+  .then()
+  .catch()
+```
+
+### Cancel default rich menu
+Cancels the default rich menu.
+
+```js
+Line
+  .cancelDefaultRichMenu(accessToken)
+  .then()
+  .catch()
+```
+
+### Get rich menu from user
+Gets an active rich menu from a specific user.
+
+```js
+Line
+  .getRichMenuUser(accessToken, userId)
+  .then((results))
+  .catch()
+```
+
+### Link rich menu to specific user
+Links a rich menu to a user. Only one rich menu can be linked to a user at one time.
+
+```js
+Line
+  .linkRichMenuToUser(accessToken, userId, richMenuId)
+  .then()
+  .catch()
+```
+
+### Unlink rich menu from specific user
+Unlinks a rich menu from specific user.
+
+```js
+Line
+  .unlinkRichMenuFromUser(accessToken, userId)
+  .then()
+  .catch()
+```
+
+### Link rich menu to many users
+Links a rich menu to many users at one time. Only one rich menu can be linked to a user at one time.
+
+```js
+Line
+  .linkRichMenuToMultipleUser(accessToken, [userId1, userId2], richMenuId)
+  .then()
+  .catch()
+```
+
+### Unlink rich menu from many users
+Unlinks a rich meny from many users.
+
+```js
+Line
+  .unlinkRichMenuFromMultipleUser(accessToken, userId)
+  .then()
+  .catch()
+```
+
+### Delete rich menu
+Deletes a rich menu.
+
+```js
+Line
+  .deleteRichMenu(accessToken, richMenuId)
+  .then()
   .catch()
 ```
 

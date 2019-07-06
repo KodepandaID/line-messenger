@@ -1,5 +1,5 @@
 {
-  "name": "line-messenger",
+  "name": "line-messenger-api",
   "version": "0.1.0",
   "description": "This package helps you to build Line Messenger API easier and faster",
   "main": "index.js",
