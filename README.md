@@ -6,6 +6,10 @@ This package helps you to build Line Messenger API easier and faster. This packa
 
 This package created by [Yudha Pratama](https://github.com/LordAur) If you found bugs or errors, you can report at Github Issue or send a direct message to my [twitter](https://twitter.com/LordAur).
 
+If you like this project, please support us to give a [Coffee](https://ko-fi.com/kodepandakreasimedia)
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T312Z2T)
+
 # Installation
 ```bash
 npm i line-messenger-api
